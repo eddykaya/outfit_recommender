@@ -1,10 +1,8 @@
 package de.bobbin.outfitrecommendation;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Optional;
 
-import javax.websocket.server.PathParam;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,19 +10,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.bobbin.outfitrecommendation.entities.OutfitRecommendation;
+import de.bobbin.outfitrecommendation.weather.OutfitRecommendationClient;
 
 @RestController
 public class OutfitRecommendationResource {
 
-	@RequestMapping(method = RequestMethod.GET, value = "/weather/{zipCode}/outfit")
-	public ResponseEntity<?> getOutfitRecommendations(@PathParam("zipCode") String zipCode) {
-		return ResponseEntity.ok(new OutfitRecommendation());
-	}
+	@Autowired
+	private OutfitRecommendationClient outfitRecommendationClient;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/weather/outfits")
-	public ResponseEntity<?> getOutfitRecommendationsForMultipleZipCodes(@RequestParam("zipCodes") List<String>
-		zipCodes) {
-		return ResponseEntity.ok(Collections.emptyList());
-	}
+	@RequestMapping(method = RequestMethod.GET, value = "/weather/outfit")
+	public ResponseEntity<?> getOutfitRecommendations(@RequestParam("zipCode") String zipCode) {
+		Optional<OutfitRecommendation> outfitRecommendation = outfitRecommendationClient
+			.getOutfitRecommendationForCity(zipCode);
 
+		return outfitRecommendation.<ResponseEntity<?>>map(ResponseEntity::ok).orElseGet(
+			() -> ResponseEntity.notFound().build());
+	}
 }
