@@ -13,6 +13,7 @@ pipeline {
                 echo 'Running unit tests for outfit_recommender'
                 sh 'mvn test'
             }
+	}
 	stage('Build docker file') {
 	    steps {
 		echo 'Building dockerfile for outfit_recommender'
@@ -31,6 +32,5 @@ pipeline {
                 sh 'curl -f --user mesos_user:${MESOS_PW} -X PUT https://mesos.url/v2/tss/production/outfit_recommender -d @$WORKSPACE/target/mesos_prod.json -H "Content-type: application/json'
             }
         }
-
     }
 }
