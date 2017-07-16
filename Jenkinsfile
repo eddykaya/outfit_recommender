@@ -4,12 +4,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                echo 'Building application outfit_recommender'
+                sh 'mvn clean package'
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                echo 'Running unit tests for outfit_recommender'
+                mvn 'test'
             }
         }
     }
