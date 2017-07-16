@@ -10,17 +10,21 @@ import com.github.eddykaya.openweather.client.OpenWeatherClient;
 import com.github.eddykaya.openweather.entities.external.CurrentWeather;
 
 import de.bobbin.outfitrecommendation.entities.OutfitRecommendation;
+import de.bobbin.outfitrecommendation.recommender.OutfitRecommender;
 
 @Component
-public class OutfitRecommendationClient {
+public class OutfitRecommendationProvider {
 
-	private static final String DEFAULT_COUNTRY = "DE";
+	private static final Locale DEFAULT_LOCALE = Locale.GERMANY;
 
 	@Autowired
 	private OpenWeatherClient openWeatherClient;
 
+	@Autowired
+	private OutfitRecommender outfitRecommender;
+
 	public Optional<OutfitRecommendation> getOutfitRecommendationForCity(String city) {
-		Optional<CurrentWeather> currentWeather = openWeatherClient.fetchCurrentWeatherAt(city, Locale.GERMANY);
+		Optional<CurrentWeather> currentWeather = openWeatherClient.fetchCurrentWeatherAt(city, DEFAULT_LOCALE);
 		Optional<OutfitRecommendation> response = Optional.empty();
 
 		if (isWeatherAvailable(currentWeather)) {
@@ -31,7 +35,7 @@ public class OutfitRecommendationClient {
 	}
 
 	private Optional<OutfitRecommendation> buildOutfitRecommendation(final CurrentWeather currentWeather) {
-		return Optional.of(OutfitRecommendation.builder().currentTemperature(currentWeather.getCurrentTemperature()).build());
+		return Optional.of(outfitRecommender.provideOutfitRecommendationForCurrentWeather(currentWeather));
 	}
 
 	private boolean isWeatherAvailable(final Optional<CurrentWeather> currentWeather) {

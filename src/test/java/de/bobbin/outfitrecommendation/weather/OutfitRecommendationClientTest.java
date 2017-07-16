@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -15,17 +16,21 @@ import com.github.eddykaya.openweather.client.OpenWeatherClient;
 import com.github.eddykaya.openweather.entities.external.CurrentWeather;
 
 import de.bobbin.outfitrecommendation.entities.OutfitRecommendation;
+import de.bobbin.outfitrecommendation.recommender.OutfitRecommender;
 
 public class OutfitRecommendationClientTest {
 
-	public static final String UNKNOWN_CITY = "Musterstadt";
-	public static final String KNOWN_CITY = "Stuttgart";
+	public static final String UNKNOWN_CITY = "00000";
+	public static final String KNOWN_CITY = "73730";
 
 	@InjectMocks
-	private OutfitRecommendationClient clientUnderTest;
+	private OutfitRecommendationProvider clientUnderTest;
 
 	@Mock
 	private OpenWeatherClient openWeatherClient;
+
+	@Spy
+	private OutfitRecommender outfitRecommender;
 
 	@BeforeMethod
 	public void beforeMethod() {
@@ -40,6 +45,7 @@ public class OutfitRecommendationClientTest {
 			Optional.empty())
 			.when(openWeatherClient)
 			.fetchCurrentWeatherAt(UNKNOWN_CITY, Locale.GERMANY);
+
 	}
 
 	@Test

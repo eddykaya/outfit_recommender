@@ -11,5 +11,6 @@ import lombok.Data;
 public class OutfitRecommendation {
 
 	private double currentTemperature;
+	private OutfitLevel outfitLevel;
 
 }
