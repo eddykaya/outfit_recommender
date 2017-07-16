@@ -1,0 +1,5 @@
+packaging:
+  add:
+    - target/${project.name}-${project.version}.jar
+
+tag: ${docker.image.tag.name}/${project.name}:${project.version}
