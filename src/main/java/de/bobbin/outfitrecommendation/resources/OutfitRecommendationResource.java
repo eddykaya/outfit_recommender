@@ -1,4 +1,4 @@
-package de.bobbin.outfitrecommendation;
+package de.bobbin.outfitrecommendation.resources;
 
 import java.util.Optional;
 
@@ -18,12 +18,12 @@ public class OutfitRecommendationResource {
 	@Autowired
 	private OutfitRecommendationProvider outfitRecommendationProvider;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/weather/outfit")
-	public ResponseEntity<?> getOutfitRecommendations(@RequestParam("zipCode") String zipCode) {
+	@RequestMapping(method = RequestMethod.GET, value = "/weather/outfit", produces = "application/json")
+	public ResponseEntity<OutfitRecommendation> getOutfitRecommendations(@RequestParam("zipCode") String zipCode) {
 		Optional<OutfitRecommendation> outfitRecommendation = outfitRecommendationProvider
 			.getOutfitRecommendationForCity(zipCode);
 
-		return outfitRecommendation.<ResponseEntity<?>>map(ResponseEntity::ok).orElseGet(
+		return outfitRecommendation.map(ResponseEntity::ok).orElseGet(
 			() -> ResponseEntity.notFound().build());
 	}
 }

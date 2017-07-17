@@ -23,6 +23,8 @@ As you can see, there are some environment variables available to configure the 
 
 ### Usage
 #### API Endpoint
+The service provides a Swagger UI under: http://localhost:8080/swagger-ui.html
+
 The service has one REST HTTP Endpoint, just enter http://localhost:8080/weather/outfit?zipCode=<your_zip_code> to retrieve an outfit recommendation
 
 #### Response
