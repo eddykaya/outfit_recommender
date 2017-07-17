@@ -11,7 +11,7 @@ This service ships with a Dockerfile so you can start quickly, but you need a wo
 2. run ```mvn clean package docker:package -Pbuild-docker-image```
 
 ### Running
-1. In order to run the service, just enter ```docker run -d -p 8080:8080 -e OPENWEATHER_API_KEY=<your-api-key> docker.tss.de/outfit_recommendation:0.0.1-SNAPSHOT```
+1. In order to run the service, just enter ```docker run -d -p 8080:8080 -e OPENWEATHER_API_KEY=<your-api-key> docker.tss.de/outfit_recommendation:0.1.0-SNAPSHOT```
 #### available environment variables
 As you can see, there are some environment variables available to configure the service:
 * OPENWEATHER_API_KEY: your own API key for the openweathermap API
