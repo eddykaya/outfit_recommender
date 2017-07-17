@@ -20,11 +20,13 @@
 
     <repositories>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/groups/public/</url>
+            <id>sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
-
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,11 +52,9 @@
             without having the jar in the resources folder
          -->
         <dependency>
-            <groupId>openweathermapclient</groupId>
-            <artifactId>com.github.eddykaya</artifactId>
+            <groupId>com.github.eddykaya</groupId>
+            <artifactId>openweathermapclient</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/openwethaermapclient-0.0.1-SNAPSHOT.jar</systemPath>
         </dependency>
 
         <!-- Test dependencies -->
@@ -91,6 +91,12 @@
     <profiles>
         <profile>
             <id>build-docker-image</id>
+
+            <properties>
+                <!-- Replace it with your docker registry -->
+                <docker.image.tag.name>docker.tss.de</docker.image.tag.name>
+            </properties>
+
             <build>
                 <plugins>
                     <plugin>
