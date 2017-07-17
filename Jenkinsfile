@@ -17,7 +17,7 @@ pipeline {
         stage('Integration-Test') {
 	    steps {
 	    	echo 'Running integration tests for outfit_recommender'
-                sh 'mvn integration-test'
+                sh 'mvn integration-test -Prun-integration-tests'
 	    }
 	}
 	stage('Build docker file') {
