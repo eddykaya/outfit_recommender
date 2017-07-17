@@ -29,7 +29,7 @@ pipeline {
         stage('Deploy Prod') {
             steps {
                 echo 'Deploying current build to production environment'
-                sh 'curl -f --user mesos_user:${MESOS_PW} -X PUT https://mesos.url/v2/tss/production/outfit_recommender -d @$WORKSPACE/target/mesos_prod.json -H "Content-type: application/json'
+                sh 'curl -f --user mesos_user:${MESOS_PW} -X PUT https://mesos.url/v2/apps/tss/production/outfit_recommender -d @$WORKSPACE/target/mesos_prod.json -H "Content-type: application/json'
             }
         }
     }

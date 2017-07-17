@@ -12,6 +12,14 @@ This service ships with a Dockerfile so you can start quickly, but you need a wo
 
 ### Running
 1. In order to run the service, just enter ```docker run -d -p 8080:8080 -e OPENWEATHER_API_KEY=<your-api-key> docker.tss.de/outfit_recommendation:0.0.1-SNAPSHOT```
+#### available environment variables
+As you can see, there are some environment variables available to configure the service:
+* OPENWEATHER_API_KEY: your own API key for the openweathermap API
+###### if you run the service behind a proxy:
+* PROXY_HOST: the proxy host, e.g. proxy.example.com
+* PROXY_PORT: the proxy port, e.g. 8090
+* PROXY_USER: the proxy username if you have authentication
+* PROXY_PASS: the proxy password
 
 ### Usage
 #### API Endpoint
